@@ -1,0 +1,33 @@
+# Shared Utilities (`@repo/utils`)
+
+The `@repo/utils` package contains common utility modules shared across the monorepo, such as hashing, JWT operations, error handling, and third-party services integration (like Redis).
+
+## Modules
+
+### 1. Password Hashing (`hashIT.ts`)
+Uses **Argon2** for secure password hashing and verification.
+- **`hashPass(password: string): Promise<string>`**:
+  Hashes a password using Argon2. Parameters (parallelism, memoryCost, timeCost, hashLength) are configured via environment variables.
+- **`verifyPass(password: string, hash: string): Promise<boolean>`**:
+  Verifies a password against an Argon2 hash.
+
+### 2. JWT Utilities (`jwtUtils.ts`)
+Handles JWT creation and validation using `jsonwebtoken`.
+- **`generateAccTok(payload)`**: Generates an Access Token with a 15-minute expiration using `JWT_ACCESS_SECRET`.
+- **`generateRefTok(payload)`**: Generates a Refresh Token with a 30-day expiration using `JWT_REFRESH_SECRET`.
+- **`verifyAccTok(token)`** & **`verifyRefTok(token)`**: Validate the respective tokens and return the payload.
+
+### 3. API Error (`apiErr.ts`)
+A custom error class extending the built-in `Error` to handle HTTP errors consistently.
+- **Properties**:
+  - `statuscode`: HTTP status code representing the error.
+  - `isOperational`: Boolean flag indicating if it's a known operational error.
+- **Static Helpers**:
+  - `apiErr.dataNotFound(message)` (404)
+  - `apiErr.dataAlreadyExist(message)` (409-like statuscode setup)
+  - `apiErr.unauthorizedAccess(message)` (401)
+  - `apiErr.unknownErr(message)` (500)
+
+### 4. Redis Client (`initRedis.ts`)
+Initializes the `ioredis` client.
+- **`redis`**: Instantiated Redis client configured using `REDIS_URL` environment variable.
