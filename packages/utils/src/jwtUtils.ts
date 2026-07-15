@@ -1,8 +1,8 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import "dotenv/config";
+import { env } from "../env";
 
-const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || "default-access-secret-key";
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "default-refresh-secret-key";
+const JWT_ACCESS_SECRET = env.JWT_ACCESS_SECRET;
+const JWT_REFRESH_SECRET = env.JWT_REFRESH_SECRET;
 
 export interface TokenPayload extends JwtPayload {
   sub: string;
