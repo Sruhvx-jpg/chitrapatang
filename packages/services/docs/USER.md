@@ -51,12 +51,7 @@ export const registerUserInputModel = z.object({
 ### `registerUserOutputModel`
 ```typescript
 export const registerUserOutputModel = z.object({
-  user: z.object({
-    id: z.string().uuid(),
-    fullName: z.string(),
-    email: z.string(),
-  }),
-  accessToken: z.string(),
-  refreshToken: z.string(),
+  id: z.string().uuid(),
+  username: z.string(),
 });
 ```

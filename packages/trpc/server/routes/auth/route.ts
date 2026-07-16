@@ -16,6 +16,9 @@ export const authRouter = router({
     .mutation(async ({ input, ctx }) => {
       const result = await userService.registerUser(input);
       setAuthToken(ctx, result.accessToken);
-      return result;
+      return {
+        id: result.user.id,
+        username: result.user.fullName,
+      };
     }),
 });

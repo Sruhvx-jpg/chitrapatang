@@ -49,7 +49,10 @@ export const authRouter = router({
       // 2. Set the HTTP-only cookie with the access token
       setAuthToken(ctx, result.accessToken);
       
-      return result;
+      return {
+        id: result.user.id,
+        username: result.user.fullName,
+      };
     }),
 });
 ```

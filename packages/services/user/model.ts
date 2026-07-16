@@ -9,13 +9,8 @@ export const registerUserInputModel = z.object({
 export type registerUserInputType = z.infer<typeof registerUserInputModel>;
 
 export const registerUserOutputModel = z.object({
-  user: z.object({
-    id: z.string().uuid(),
-    fullName: z.string(),
-    email: z.string(),
-  }),
-  accessToken: z.string(),
-  refreshToken: z.string(),
+  id: z.string().uuid(),
+  username: z.string(),
 });
 
 export type registerUserOutputType = z.infer<typeof registerUserOutputModel>;
