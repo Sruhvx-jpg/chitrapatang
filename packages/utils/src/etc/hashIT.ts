@@ -1,5 +1,6 @@
 import argon2 from "argon2";
-import { env } from "../env";
+import { env } from "../../env";
+
 
 
 export async function hashPass(password: string): Promise<string> {

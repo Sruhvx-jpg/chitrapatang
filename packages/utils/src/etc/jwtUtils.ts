@@ -1,5 +1,6 @@
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { env } from "../env";
+import { env } from "../../env";
+
 
 const JWT_ACCESS_SECRET = env.JWT_ACCESS_SECRET;
 const JWT_REFRESH_SECRET = env.JWT_REFRESH_SECRET;
