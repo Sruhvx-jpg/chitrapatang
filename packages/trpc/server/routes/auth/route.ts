@@ -2,8 +2,8 @@ import { z } from "../../schema";
 import { userService } from "../../services";
 import { registerUserInputModel, registerUserOutputModel } from "@repo/services/user/model";
 import { publicProcedure, router } from "../../trpc";
-import { generatePath } from "../../utils/path-generator";
-import { setAuthToken } from "../../utils/cookie";
+import { generatePath } from "../../server-utils/path-generator";
+import { setAuthToken } from "../../server-utils/cookie";
 
 const TAGS = ["Authentication"];
 const getPath = generatePath("/authentication");

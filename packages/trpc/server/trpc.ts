@@ -4,7 +4,7 @@ import { OpenApiMeta } from "trpc-to-openapi";
 import { createContext } from "./context";
 
 import { redis, verifyAccTok } from "@repo/utils";
-import { getAuthToken } from "./utils/cookie";
+import { getAuthToken } from "./server-utils/cookie";
 
 
 //++++++++++++ This file has middle integrateed for procedures +++++++++++++++
@@ -22,7 +22,7 @@ export const router = tRPCContext.router;
 
 // middlewares
 const fixedWindowRateLimiter = tRPCContext.middleware(async ({ ctx, next }) => {
-    const ip = ctx.req.ip
+  const ip = ctx.req.ip
 
   const key = `FWRL:${ip}`
   console.log("KEY: ", key)
