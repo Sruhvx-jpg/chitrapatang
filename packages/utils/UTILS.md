@@ -31,3 +31,22 @@ A custom error class extending the built-in `Error` to handle HTTP errors consis
 ### 4. Redis Client (`initRedis.ts`)
 Initializes the `ioredis` client.
 - **`redis`**: Instantiated Redis client configured using `REDIS_URL` environment variable.
+
+### 5. Email Service (`mail/`)
+Handles sending emails using the **Resend** SDK.
+- **`SendCodeViaMail(payload)`**:
+  Sends a verification code email. The payload is validated using Zod.
+  - **Payload Properties**:
+    - `receiver`: The recipient's email address.
+    - `subject`: The subject of the email (optional, defaults to `'mail from chitrapatang'`).
+    - `code`: A 4 to 8 digit alphanumeric verification code.
+    - `para`: The paragraph text to display in the email body.
+    - `expiresAt`: The expiration time of the verification code (`Date`, `string`, or `number`).
+- **`SendWelcomeMail(payload)`**:
+  Sends a welcome email to a new user. The payload is validated using Zod.
+  - **Payload Properties**:
+    - `receiver`: The recipient's email address.
+    - `subject`: The subject of the email (optional, defaults to `'Welcome to chitrapatang'`).
+    - `username`: The username of the new user.
+
+
