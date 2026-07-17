@@ -6,18 +6,25 @@ Chitrapatang is an agile scrum management software designed specifically for Man
 
 This project is structured as a monorepo managed via Turborepo and pnpm workspaces:
 
-- `apps/`
-  - `api/` — Express backend API serving tRPC routes.
-  - `web/` — Next.js web application frontend.
-  - `tauri-app/` — Tauri desktop client wrapper using a Next.js UI.
-- `packages/`
-  - `trpc/` — Shared tRPC router definitions and client configurations.
-  - `database/` — Database schemas and Drizzle ORM setup.
-  - `logger/` — Logging module wrapper.
-  - `services/` — Business logic layer containing service managers (e.g., `UserService`).
-  - `utils/` — Shared utilities for token generation, Redis client, cryptographic operations, and email sending helpers.
-  - `eslint-config/` — Shared ESLint configurations.
-  - `typescript-config/` — Shared TypeScript configurations.
+```
+chitrapatang/
+├── apps/
+│   ├── api/                # Express backend API serving tRPC routes
+│   ├── web/                # Next.js web application frontend (UI/components/pages)
+│   └── tauri-app/          # Tauri desktop client wrapper using a Next.js UI
+├── packages/
+│   ├── trpc/               # Shared tRPC router definitions and client configurations
+│   ├── database/           # Drizzle ORM schemas, migration files, and client connection
+│   ├── logger/             # Winston logger wrapper module
+│   ├── services/           # Core business logic layer (e.g., UserService)
+│   ├── utils/              # Shared cryptographic, Redis, and email (Resend SDK) helper utilities
+│   ├── eslint-config/      # Shared ESLint configuration rules
+│   └── typescript-config/  # Shared TypeScript compiler options
+├── AGENT.md                # Agent guidelines, rules, structure, and commit conventions
+├── README.md               # Getting started instructions and monorepo overview
+├── turbo.json              # Turborepo task pipeline configuration
+└── pnpm-workspace.yaml     # pnpm workspace package definitions
+```
 
 ## Requirements
 
