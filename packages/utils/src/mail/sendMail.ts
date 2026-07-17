@@ -29,12 +29,18 @@ export async function SendCodeViaMail(payload: SendCodeViaMailParams) {
     </div>
   `;
 
-  return resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: receiver,
     subject,
     html: htmlContent,
   });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 }
 
 export async function SendWelcomeMail(payload: SendWelcomeMailParams) {
@@ -58,10 +64,16 @@ export async function SendWelcomeMail(payload: SendWelcomeMailParams) {
     </div>
   `;
 
-  return resend.emails.send({
+  const { data, error } = await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: receiver,
     subject,
     html: htmlContent,
   });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data;
 }
