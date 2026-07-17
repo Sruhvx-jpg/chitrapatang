@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Yatra_One } from "next/font/google";
 import "./globals.css";
 import { GlobalProviders } from "~/providers/global";
 
@@ -10,6 +11,12 @@ const geistSans = localFont({
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
+});
+
+const yatraOne = Yatra_One({
+  weight: "400",
+  subsets: ["latin", "devanagari"],
+  variable: "--font-yatra",
 });
 
 export const metadata: Metadata = {
@@ -24,7 +31,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${yatraOne.variable}`}>
         <GlobalProviders>{children}</GlobalProviders>
       </body>
     </html>
