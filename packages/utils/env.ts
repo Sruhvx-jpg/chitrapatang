@@ -11,6 +11,7 @@ const envSchema = z.object({
   ARGON_HASH_LENGTH: z.coerce.number().default(40).describe("Argon2 Hash Output Length (bytes)"),
   ARGON_PARALLELISM: z.coerce.number().default(1).describe("Argon2 Parallelism (threads)"),
   RESEND_EMAIL_KEY: z.string().describe("Resend email API key"),
+  ENCRYPTION_ALGORITHM: z.string().describe("Encryption algorithm for OTPs"),
 });
 
 function createEnv(env: NodeJS.ProcessEnv) {
