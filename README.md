@@ -1,13 +1,23 @@
-# tRPC Monorepo Scaffold
+# Chitrapatang
 
-A starter monorepo with tRPC, Next.js web apps, a Tauri desktop app, and a shared backend API.
+Chitrapatang is an agile scrum management software designed specifically for Managers and Tech Leads to streamline workflows, track project milestones, and coordinate scrum tasks efficiently.
 
-## What’s included
+## Folder Structure
 
-- `apps/api` — Express + tRPC backend service
-- `apps/web` — Next.js web frontend
-- `apps/tauri-app` — Tauri desktop app with a Next.js UI
-- `packages/*` — shared modules for `trpc`, `database`, `logger`, `services`, ESLint, and TypeScript configuration
+This project is structured as a monorepo managed via Turborepo and pnpm workspaces:
+
+- `apps/`
+  - `api/` — Express backend API serving tRPC routes.
+  - `web/` — Next.js web application frontend.
+  - `tauri-app/` — Tauri desktop client wrapper using a Next.js UI.
+- `packages/`
+  - `trpc/` — Shared tRPC router definitions and client configurations.
+  - `database/` — Database schemas and Drizzle ORM setup.
+  - `logger/` — Logging module wrapper.
+  - `services/` — Business logic layer containing service managers (e.g., `UserService`).
+  - `utils/` — Shared utilities for token generation, Redis client, cryptographic operations, and email sending helpers.
+  - `eslint-config/` — Shared ESLint configurations.
+  - `typescript-config/` — Shared TypeScript configurations.
 
 ## Requirements
 
@@ -29,10 +39,9 @@ A starter monorepo with tRPC, Next.js web apps, a Tauri desktop app, and a share
    pnpm install
    ```
 
-3. Configure environment variables, if needed:
+3. Configure environment variables:
 
-   - There is a root `.env` and `.env` files in some workspace packages.
-   - Adjust values as needed for your local database, API, or development environment.
+   - The root `.env` configures local environment settings (e.g., database, Redis, Resend API key, and encryption settings).
 
 ## Run the project
 
@@ -73,8 +82,6 @@ This uses Turbo to run the workspace apps in parallel.
 
   ```bash
   pnpm --filter web build
-  pnpm --filter tauri-app build
-  pnpm --filter @repo/api build
   ```
 
 ## Useful commands
@@ -94,11 +101,22 @@ This uses Turbo to run the workspace apps in parallel.
   pnpm check-types
   ```
 
-## Notes
+## Code of Conduct
 
-- The repo uses Turborepo for workspace orchestration.
-- Shared `@repo/*` packages are consumed by the apps in `apps/`.
-- If you need to inspect app entry points, see:
-  - `apps/api/src/index.ts`
-  - `apps/web/app/page.tsx`
-  - `apps/tauri-app/app/page.tsx`
+### Our Pledge
+We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community. We commit to showing respect and professional integrity to all contributors, maintainers, and team members.
+
+### Our Standards
+Examples of behavior that contributes to a positive environment include:
+- Using welcoming and inclusive language.
+- Being respectful of differing viewpoints and experiences.
+- Gracefully accepting constructive criticism.
+- Focusing on what is best for the team and community.
+- Showing empathy towards other community members.
+
+Examples of unacceptable behavior include:
+- The use of sexualized language or imagery, and unwelcome sexual attention or advances.
+- Trolling, insulting or derogatory comments, and personal or political attacks.
+- Public or private harassment.
+- Publishing others' private information, such as a physical or email address, without their explicit permission.
+- Other conduct which could reasonably be considered inappropriate in a professional setting.
