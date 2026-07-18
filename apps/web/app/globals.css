@@ -122,3 +122,50 @@
     @apply bg-background text-foreground;
   }
 }
+
+@theme {
+  --color-brand-blue: #0052FF;
+  --color-brand-blue-hover: #0041CC;
+  --color-brand-blue-glow: rgba(0, 82, 255, 0.15);
+  --color-brand-dark: #08090B;
+}
+
+/* Custom Grid Mesh & Gradient background */
+.radial-grid {
+  background-image: 
+    radial-gradient(at 50% 0%, rgba(0, 82, 255, 0.05) 0px, transparent 50%),
+    radial-gradient(at 100% 80%, rgba(0, 82, 255, 0.01) 0px, transparent 40%),
+    radial-gradient(at 0% 100%, rgba(0, 82, 255, 0.01) 0px, transparent 40%);
+  background-attachment: fixed;
+}
+.dark .radial-grid {
+  background-image: 
+    radial-gradient(at 50% 0%, rgba(0, 82, 255, 0.12) 0px, transparent 50%),
+    radial-gradient(at 100% 80%, rgba(0, 82, 255, 0.04) 0px, transparent 40%),
+    radial-gradient(at 0% 100%, rgba(0, 82, 255, 0.04) 0px, transparent 40%);
+}
+
+.mesh-grid {
+  background-size: 56px 56px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+}
+.dark .mesh-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+}
+
+.mesh-mask {
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 95%);
+}
+
+.input-ring:focus,
+.input-ring:focus-within {
+  box-shadow: 0 0 0 2px rgba(0, 82, 255, 0.25), 0 0 24px rgba(0, 82, 255, 0.15);
+  border-color: #0052FF;
+  outline: none;
+}
+
+
