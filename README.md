@@ -4,7 +4,8 @@ Chitrapatang Terminal is an agile scrum management software designed specificall
 
 ## Folder Structure
 
-This project is structured as a monorepo managed via Turborepo and pnpm workspaces:
+This project is structured as a monorepo managed via Turborepo and pnpm workspaces: 
+
 
 ```
 chitrapatang/
