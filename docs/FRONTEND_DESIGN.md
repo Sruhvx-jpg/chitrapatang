@@ -75,6 +75,8 @@ Typography is the core of the interface. Tracking decreases as font size increas
 
 Consistent grids and corner details prevent visual noise.
 
+
+
 ### Spacing Scale
 Utilize a strict 8px logic:
 - `4px` (xs) • `8px` (sm) • `16px` (md) • `24px` (lg) • `32px` (xl) • `48px` (2xl) • `64px` (3xl).
