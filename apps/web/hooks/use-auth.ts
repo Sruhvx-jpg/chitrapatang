@@ -35,7 +35,7 @@ export function useAuth() {
         localStorage.setItem("user_metadata", JSON.stringify(metadata));
         setUser(metadata);
         toast.success("Logged in successfully!");
-        router.push("/dashboard");
+        router.push("/GetStarted");
       } else {
         localStorage.setItem("pending_verify_email", data.email);
         toast.warning("Please verify your email address. An OTP has been sent!");
@@ -53,7 +53,7 @@ export function useAuth() {
       const metadata = { fullName: data.username, email: "" };
       localStorage.setItem("user_metadata", JSON.stringify(metadata));
       setUser(metadata);
-      router.push("/dashboard");
+      router.push("/GetStarted");
     },
     onError: (err) => {
       toast.error(err.message || "Failed to register");
@@ -67,7 +67,7 @@ export function useAuth() {
       setUser(metadata);
       localStorage.removeItem("pending_verify_email");
       toast.success("Email verified successfully!");
-      router.push("/dashboard");
+      router.push("/GetStarted");
     },
     onError: (err) => {
       toast.error(err.message || "Failed to verify email");

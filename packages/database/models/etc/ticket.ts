@@ -8,7 +8,7 @@ import {
   text,
 } from "drizzle-orm/pg-core";
 import { projectsTable } from "./project";
-import { employeesTable } from "./user";
+import { employeesTable } from "./employee";
 
 export const stageEnum = pgEnum("stage", ["assigned", "working", "finished"]);
 
@@ -32,7 +32,7 @@ export const ticketAssignmentsTable = pgTable(
       .references(() => ticketsTable.ticketId, { onDelete: "cascade" }),
     employeeId: uuid("employee_id")
       .notNull()
-      .references(() => employeesTable.userId, { onDelete: "cascade" }),
+      .references(() => employeesTable.id, { onDelete: "cascade" }),
     stage: stageEnum("stage").default("assigned").notNull(),
     startDate: timestamp("start_date").defaultNow().notNull(),
     deadline: timestamp("deadline"),

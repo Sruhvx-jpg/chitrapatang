@@ -109,7 +109,7 @@ export default function ComingSoonPage() {
               />
             </div>
             <span className="text-xl font-yatra tracking-wide text-zinc-100">
-              Chitra<span className="text-brand-blue">patang</span>
+              Chitrapatang <span className="text-brand-blue">Terminal</span>
             </span>
           </div>
 
@@ -171,9 +171,9 @@ export default function ComingSoonPage() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-sans font-medium tracking-tighter text-white max-w-4xl"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-medium tracking-tighter text-white max-w-4xl"
         >
-          Agile, without the management.
+          Agile.
         </motion.h1>
 
         {/* Supporting Line */}
