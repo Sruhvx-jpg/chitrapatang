@@ -15,6 +15,14 @@ Chitrapatang Terminal is an agile scrum management platform designed specificall
 - **Focused Communication:** Hard cap of **4 channels** per workspace (`channel_threshold = 4`) with high-throughput keyset-paginated chat messages.
 - **Fibonacci Story Pointing & Priority Levels:** Standardized `P0` to `P3` priority badges and story point estimation scale (`1, 2, 3, 5, 8, 13`).
 
+![ML-Powered Sprint Burndown Chart](./docs/assets/ml_predictive_burndown.png)
+
+### Sprint Lifecycle & Architecture
+
+![Four-Stage Sprint Lifecycle](./docs/assets/sprint_lifecycle_states.png)
+
+![System Architecture & Data Flow](./docs/assets/architecture_data_flow.png)
+
 ---
 
 ## Folder Structure
