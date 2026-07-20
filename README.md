@@ -35,6 +35,7 @@ chitrapatang/
 │   ├── assets/             # Infographic assets & generated diagrams
 │   ├── scrum.md            # Agile Scrum & Product Architecture guide
 │   ├── sprint.md           # Project Sprint Planning & Development roadmap
+│   ├── system_design.md    # Architectural & System Design Patterns guide
 │   ├── AGENT.md            # Agent guidelines, rules, structure, and commit conventions
 │   ├── DESIGN_SYSTEM.md    # Design system, tokens, and visual standards
 │   └── POSTFIX.md          # Architecture decisions & postfix notes
@@ -86,6 +87,7 @@ chitrapatang/
 ## Documentation
 
 - 📘 **[Agile Scrum Guide](docs/scrum.md):** Complete architecture overview, priority levels, 4-stage lifecycle, and ML burndown analytics.
+- 🏗️ **[System Design Patterns](docs/system_design.md):** Architectural patterns, CTI database design, single-table state machine, keyset pagination, and tRPC contracts.
 - 📋 **[Project Sprint Planning](docs/sprint.md):** 4-Sprint execution roadmap and story point estimates.
 - 🗄️ **[Database Model Architecture](packages/database/models/MODEL.md):** PostgreSQL schema design rules and class table inheritance.
 
