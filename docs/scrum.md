@@ -1,207 +1,128 @@
-# Chitrapatang Terminal — Agile Scrum Guide
+# Chitrapatang Terminal — Agile Scrum & Product Architecture
 
 > **AI-Native Agile Project Management for Engineering Teams.**
 >
-> This document outlines how the Scrum framework is applied within Chitrapatang Terminal — from workspace creation to ticket delivery. Every concept maps directly to the platform's database models, UI components, and service layer.
+> This document outlines how the Scrum framework and Product/Sprint concepts are applied within Chitrapatang Terminal — from workspace creation to ticket delivery, security access tokens, and autonomous AI orchestration.
 
 ---
 
-## 1. Scrum Framework Overview
+## 1. Vision & Core Principles
 
-Scrum is an iterative, incremental framework for managing complex product development. It structures work into fixed-length iterations called **Sprints**, each producing a potentially shippable product increment.
+Chitrapatang Terminal is designed to streamline engineering workflows by uniting software product management, sprint execution, and automated AI agents into a single developer-first platform.
 
-![Agile Scrum Framework Cycle](./docs/assets/scrum_sprint_cycle.png)
-
-### The Sprint Cycle
-
-| Phase                    | Purpose                                                                 | Duration         |
-|--------------------------|-------------------------------------------------------------------------|------------------|
-| **Product Backlog**      | Ordered list of everything needed in the product                        | Ongoing          |
-| **Sprint Planning**      | Team selects items from the backlog and defines the Sprint Goal          | ~2 hours/sprint  |
-| **Sprint Backlog**       | Subset of backlog items committed for the current sprint                | Sprint duration  |
-| **Daily Standup**        | 15-min sync: What did I do? What will I do? Any blockers?               | 15 min/day       |
-| **Sprint Review**        | Demonstrate completed work to stakeholders                              | ~1 hour/sprint   |
-| **Sprint Retrospective** | Reflect on the sprint process and identify improvements                 | ~1 hour/sprint   |
+- **Product & Project Unification:** In Chitrapatang, a **Product** and a **Project** represent the same entity. The Product Owner (Workspace Owner) links their GitHub repository directly to manage product goals, tickets, and sprint releases.
+- **Autonomous AI Scrum Master:** In addition to human managers, Chitrapatang integrates an **Autonomous AI Agent** to act as a co-Scrum Master — assisting with backlog grooming, standup summaries, automated sprint velocity tracking, and blocker detection *(coming in AI release once core application logic is complete)*.
 
 ---
 
-## 2. Scrum Roles
+## 2. Priority Level Definitions
 
-Each workspace in Chitrapatang Terminal maps directly to a Scrum team structure.
+Every ticket and backlog item in Chitrapatang is assigned a strict priority level to govern engineering focus and release order.
 
-![Scrum Roles](./docs/assets/scrum_roles.png)
+![Agile Backlog Priority Levels](./assets/priority_tiers.png)
+
+| Level | Priority Name | Visual Badge | Description & SLA |
+|-------|---------------|--------------|-------------------|
+| **P0** | **Critical** | 🔴 Red | Immediate action required. Production outages, security vulnerabilities, or release blockers. Must be resolved before any other work. |
+| **P1** | **High** | 🟡 Yellow | Priority for the current/upcoming sprint. Core feature developments and major improvements. |
+| **P2** | **Normal** | 🟢 Green | Valuable enhancement, non-urgent. Scheduled based on team capacity during sprint planning. |
+| **P3** | **Low** | ⚪ White | Minor polish, technical debt, refactoring, or future ideas. |
+
+---
+
+## 3. Scrum Roles & Agent Integration
+
+![Scrum Roles](./assets/scrum_roles.png)
 
 ### Role Mapping in Chitrapatang
 
-| Scrum Role           | Chitrapatang Equivalent          | Database Model                          |
-|----------------------|----------------------------------|-----------------------------------------|
-| **Product Owner**    | Workspace Owner (`owner_id`)     | `workspaces.owner_id` → `users.id`      |
-| **Scrum Master**     | Manager-role Employee            | `employees.role = "Manager"`            |
-| **Development Team** | Active Employees                 | `employees.status = "active"`           |
-
-#### How Roles Work
-
-- **Workspace Owner (Product Owner):** Creates the workspace, manages the product backlog (projects & tickets), invites team members, and has final approval authority over employee invitations.
-- **Manager (Scrum Master):** Facilitates sprint ceremonies, generates invite codes for new employees, and approves/rejects join requests in real-time.
-- **Active Employees (Dev Team):** Self-organizing team members who pick up tickets, transition them through stages, and deliver increments.
-
----
-
-## 3. Workspace & Team Structure
-
-```
-Workspace (workspaces)
-├── Owner (users.id → workspaces.owner_id)
-├── Channels (workspace_channels) — max 4 per workspace
-│   └── Messages (messages) — keyset paginated
-├── Employees (employees)
-│   ├── Active members (status = "active")
-│   ├── Pending invites (status = "pending", inviteCode set)
-│   └── Rejected/Revoked (status = "rejected" | "revoked")
-└── Projects (projects)
-    └── Tickets (tickets)
-        ├── Assignments (ticket_assignments)
-        └── Documentation (ticket_docs)
-```
+| Scrum Role | Chitrapatang Equivalent | Primary Responsibilities |
+|------------|-------------------------|--------------------------|
+| **Product Owner** | Workspace Owner (`workspaces.owner_id`) | Defines product vision, links GitHub repositories, manages product backlog, and approves employee invitations. |
+| **Scrum Master** | Manager Employee / Autonomous AI Agent | Facilitates sprint ceremonies, generates employee invite codes, manages sprint read/write access keys, and tracks team velocity. |
+| **Development Team** | Active Employees (`status = "active"`) | Self-organizing engineers who estimate story points, execute tickets, and transition work through the sprint lifecycle. |
 
 ### Employee Invitation Flow
 
 The single-table invitation system (`employees` table) manages onboarding:
 
-```
-Manager creates invite → Employee row created (status="pending", inviteCode set)
-                              ↓
-User enters invite code → Claim request sent to manager
-                              ↓
-             ┌──── Manager Approves ────┐
-             │                          │
-    userId attached to row       status → "active"
-    inviteCode cleared           Employee is now part of the team
-             │
-             └──── Manager Rejects ─────┐
-                                        │
-                              status → "rejected"
-                              Row preserved for audit
-```
+![Employee Invitation Flow](./assets/invitation_flow.png)
 
 ---
 
-## 4. Ticket Lifecycle & Sprint Board
+## 4. Four-Stage Sprint Lifecycle
 
-Tickets are the atomic unit of work in Chitrapatang. Each ticket belongs to a **project**, which belongs to a **workspace**.
+Work items in a sprint move through four distinct states during development:
 
-### Ticket Stage Lifecycle
+![Sprint Lifecycle States](./assets/sprint_lifecycle_states.png)
 
-![Ticket Lifecycle](./docs/assets/ticket_lifecycle.png)
+| Stage | Enum Key | Description |
+|-------|----------|-------------|
+| **1. Planning** | `planning` | Backlog item selected for sprint, estimated in story points, and assigned to engineers. |
+| **2. Building** | `building` | Active development, feature implementation, and code writing. |
+| **3. Testing** | `testing` | Quality assurance, automated test suite runs, code reviews, and bug fixes. |
+| **4. Release** | `release` | Verified increment deployed to production or target release build. |
 
-| Stage        | Enum Value   | Description                                         |
-|--------------|-------------|------------------------------------------------------|
-| **Assigned** | `assigned`  | Ticket created & employee assigned, work not started  |
-| **Working**  | `working`   | Employee actively developing the ticket               |
-| **Finished** | `finished`  | Work completed, ready for review                      |
-
-### Sprint Board View
-
-![Sprint Board](./docs/assets/sprint_board.png)
-
-The sprint board maps directly to the `ticket_assignments.stage` enum:
-
-| Board Column           | Stage Enum | Color   |
-|------------------------|-----------|---------|
-| **To Do / Assigned**   | `assigned` | Gray    |
-| **In Progress / Working** | `working` | Blue |
-| **Done / Finished**    | `finished` | Green   |
+> *Note: Application schemas allow future extensibility for dynamic user-defined custom states.*
 
 ---
 
-## 5. Scrum Artifacts in Chitrapatang
+## 5. Estimation & Story Points
 
-### Product Backlog → Projects & Tickets
+Chitrapatang uses standard **Fibonacci Story Pointing** to measure relative complexity and effort:
 
-The product backlog is represented by the combination of `projects` and their child `tickets`:
+![Fibonacci Story Points Scale](./assets/fibonacci_story_points.png)
 
-- **Projects** link a workspace to a GitHub repository (`projects.repo`)
-- **Tickets** are individual work items with title, description, and optional repo link
-- **Ticket Docs** (`ticket_docs`) hold detailed markdown specifications (up to 10k chars)
+$$\text{Story Points} \in \{1, 2, 3, 5, 8, 13\}$$
 
-### Sprint Backlog → Ticket Assignments
-
-When a sprint begins, tickets are assigned to employees via `ticket_assignments`:
-
-- Each assignment has a **composite primary key** (`ticket_id`, `employee_id`)
-- Tracks `start_date` and optional `deadline`
-- Stage transitions (`assigned` → `working` → `finished`) track progress
-
-### Increment → Finished Tickets
-
-The sprint increment consists of all tickets moved to `finished` stage during the sprint.
+- **1 – 2 Points:** Small tasks, quick bug fixes, simple UI tweaks.
+- **3 – 5 Points:** Medium feature development, new API endpoints, database schema updates.
+- **8 – 13 Points:** Complex architectural changes, major subsystem implementations. Items $\ge 13$ must be broken down during Sprint Planning.
 
 ---
 
-## 6. Scrum Events & Channels
+## 6. Access Control, Security Keys & Audit Logs
 
-Workspace channels (`workspace_channels`) facilitate Scrum ceremonies:
-
-| Channel Purpose       | Example Channel Name | Used For                                    |
-|-----------------------|---------------------|----------------------------------------------|
-| **General**           | `#general`          | Team-wide announcements and discussions       |
-| **Daily Standup**     | `#standup`          | Async standup updates and blocker reports     |
-| **Sprint Planning**   | `#sprint-planning`  | Sprint goal discussions and backlog grooming  |
-| **Retrospective**     | `#retro`            | Post-sprint reflections and improvements      |
-
-> **Note:** Each workspace has a hard cap of **4 channels** (`channel_threshold = 4`), enforced at the application layer. This constraint encourages focused communication.
-
----
-
-## 7. Data Flow Summary
+To protect sprint data and enable secure API integrations, Chitrapatang enforces dynamic read and write access keys per sprint:
 
 ```
-User authenticates
-    ↓
-Workspace discovered (owned or employee membership)
-    ↓
-GetStarted → Create Workspace OR Join via Invite Code
-    ↓
-┌─────────────────────────────────────────────────┐
-│                  WORKSPACE                      │
-│                                                 │
-│  Channels ←──── Messages (real-time chat)       │
-│                                                 │
-│  Projects ←──── Tickets                         │
-│                   ├── Assignments (stage enum)   │
-│                   └── Docs (markdown specs)      │
-│                                                 │
-│  Employees ←──── Invite system (single-table)   │
-└─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│                       SPRINT SECURITY                       │
+│                                                             │
+│  Read Key (read_key)    ──► Grants read-only access to      │
+│                             sprint board & tickets          │
+│                                                             │
+│  Write Key (write_key)  ──► Grants mutation rights for      │
+│                             stage updates & ticket edits    │
+└─────────────────────────────────────────────────────────────┘
 ```
 
----
-
-## 8. Key Design Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| **Single-table employee invitations** | Avoids join complexity; `status` enum + nullable `userId` handles the full invite lifecycle in one row |
-| **PostgreSQL enums for state** | `employee_status` and `stage` enums enforce valid state transitions at the database level |
-| **4-channel hard cap** | Prevents channel sprawl; forces teams to organize communication intentionally |
-| **Keyset pagination for messages** | `BIGSERIAL` ID enables efficient cursor-based pagination for high-volume chat |
-| **Composite PK on assignments** | Prevents duplicate assignments while enabling many-to-many ticket ↔ employee relationships |
-| **Cascading deletes** | Workspace deletion cascades to channels, messages, projects, tickets, and employees — clean teardown |
+- **Granular Permissions:** Product Owners and Scrum Masters grant read/write access to specific employee accounts.
+- **Audit Logging:** Every read and write operation is recorded in dedicated `read_logs` and `write_logs` tables to maintain complete compliance and security transparency.
 
 ---
 
-## 9. Sprint Checklist Template
+## 7. Sprint Performance, Predictive ML & Burndown Analytics
 
-Use this checklist at the start of each sprint:
+Chitrapatang Terminal integrates Machine Learning models to provide intelligent sprint velocity forecasting and predictive burndown statistics:
 
-- [ ] **Sprint Planning** — Define sprint goal and select tickets from backlog
-- [ ] **Assign Tickets** — Create `ticket_assignments` for each team member
-- [ ] **Set Deadlines** — Populate `deadline` field on critical assignments
-- [ ] **Daily Standups** — Post updates in the `#standup` channel
-- [ ] **Track Progress** — Move tickets through `assigned` → `working` → `finished`
-- [ ] **Sprint Review** — Demo finished tickets to the workspace owner
-- [ ] **Retrospective** — Discuss what went well, what to improve in `#retro`
+![ML-Powered Sprint Burndown Chart](./assets/ml_predictive_burndown.png)
+
+- **Predictive Burndown Curve (ML Integration):** Machine Learning regression models analyze historical team velocity, ticket story points, commit frequencies, and individual workloads to project real-time completion curves against ideal sprint linear progression.
+- **Completion Rate Forecasting:** Predicts the probability of completing all committed sprint tickets before the deadline, flagging delay risks early in the `building` phase.
+- **Developer Workload & Burnout Statistics:** Uses statistical analysis and workload metrics to identify over-allocated team members, helping managers prevent developer fatigue and balance task assignments.
+- **Sprint Velocity:** Automated tracking of story points transitioned to `finished` per sprint cycle.
 
 ---
 
-*Built with Chitrapatang Terminal — AI-Native Agile for modern engineering teams.*
+## 8. System Data Flow & Architecture
+
+![System Architecture & Data Flow](./assets/architecture_data_flow.png)
+
+---
+
+## 9. Summary of System Artifacts
+
+- **`docs/scrum.md`**: Complete Agile Scrum architecture & product vision guide.
+- **`docs/sprint.md`**: Dedicated sprint execution, backlog management, and technical schema specification.
+- **`packages/database/models/MODEL.md`**: Database relational schema specification.
