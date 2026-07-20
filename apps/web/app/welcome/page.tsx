@@ -136,14 +136,14 @@ export default function WelcomePage() {
           <div className="relative w-8 h-8 flex items-center justify-center bg-white/25 dark:bg-zinc-900/30 border border-white/10 dark:border-zinc-800/50 rounded-lg p-1.5 overflow-hidden shadow-sm backdrop-blur-md">
             <Image
               src="/logo.png"
-              alt="Chitra Patang Logo"
+              alt="Chitrapatang Terminal Logo"
               width={24}
               height={24}
               className="object-contain"
             />
           </div>
           <span className="text-xl lg:text-2xl font-yatra tracking-wide text-zinc-900 dark:text-white">
-            Chitra<span className="text-brand-blue">patang</span>
+            Chitrapatang <span className="text-brand-blue">Terminal</span>
           </span>
         </div>
 
@@ -334,7 +334,7 @@ export default function WelcomePage() {
 
         {/* Footer */}
         <div className="flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 dark:text-zinc-600 gap-4">
-          <span>&copy; {new Date().getFullYear()} Chitra Patang. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Chitrapatang Terminal. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-zinc-700 dark:hover:text-zinc-400 transition-colors">Terms of Service</a>
             <a href="#" className="hover:text-zinc-700 dark:hover:text-zinc-400 transition-colors">Privacy Policy</a>
@@ -349,7 +349,7 @@ export default function WelcomePage() {
           <div className="relative w-full h-full rounded-2xl overflow-hidden border border-zinc-200/50 dark:border-zinc-900/80 transition-colors duration-300">
             <Image
               src="/workspace.png"
-              alt="Chitrapatang Agile Scrum Dashboard Preview"
+              alt="Chitrapatang Terminal Agile Scrum Dashboard Preview"
               fill
               className="object-cover opacity-95 dark:opacity-90 transition-opacity duration-300"
               priority

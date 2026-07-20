@@ -102,7 +102,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-semibold tracking-wide text-zinc-100 flex items-center gap-1.5">
-                Chitrapatang <span className="text-[10px] text-brand-blue px-1.5 py-0.5 rounded-full bg-brand-blue/10 border border-brand-blue/20">Desktop</span>
+                Chitrapatang Terminal <span className="text-[10px] text-brand-blue px-1.5 py-0.5 rounded-full bg-brand-blue/10 border border-brand-blue/20">Desktop</span>
               </span>
             </div>
           </div>
@@ -422,7 +422,7 @@ export default function Home() {
       <footer className="relative z-10 border-t border-zinc-900 py-6 bg-zinc-950/60 mt-8">
         <div className="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-zinc-650">
           <div>
-            &copy; {new Date().getFullYear()} Chitrapatang. All rights reserved.
+            &copy; {new Date().getFullYear()} Chitrapatang Terminal. All rights reserved.
           </div>
           <div className="flex items-center gap-4 text-zinc-500">
             <span>Client Version 0.1.0</span>

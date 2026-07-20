@@ -19,20 +19,20 @@ const yatraOne = Yatra_One({
 });
 
 export const metadata: Metadata = {
-  title: "Chitra Patang — AI-First Agile Scrum Management",
+  title: "Chitrapatang Terminal — AI-First Agile Scrum Management",
   description: "AI runs standups, auto-refines backlogs, predicts sprint risks, and resolves blockers before they happen. Experience the next evolution of agile scrum.",
   metadataBase: new URL("https://chitrapatang.com"), // placeholder for absolute URL resolution
   openGraph: {
-    title: "Chitra Patang — AI-First Agile Scrum Management",
+    title: "Chitrapatang Terminal — AI-First Agile Scrum Management",
     description: "The first Scrum Master with a GPU. Predict risks, prevent blockers, and ship without friction.",
     url: "https://chitrapatang.com",
-    siteName: "Chitra Patang",
+    siteName: "Chitrapatang Terminal",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Chitra Patang — AI-First Agile Scrum Management",
+    title: "Chitrapatang Terminal — AI-First Agile Scrum Management",
     description: "AI-first agile scrum management. The first Scrum Master with a GPU.",
   },
 };

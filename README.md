@@ -1,6 +1,6 @@
-# Chitrapatang
+# Chitrapatang Terminal
 
-Chitrapatang is an agile scrum management software designed specifically for Managers and Tech Leads to streamline workflows, track project milestones, and coordinate scrum tasks efficiently.
+Chitrapatang Terminal is an agile scrum management software designed specifically for Managers and Tech Leads to streamline workflows, track project milestones, and coordinate scrum tasks efficiently.
 
 ## Folder Structure
 

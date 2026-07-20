@@ -38,7 +38,7 @@ Handles sending emails using the **Resend** SDK.
   Sends a verification code email. The payload is validated using Zod.
   - **Payload Properties**:
     - `receiver`: The recipient's email address.
-    - `subject`: The subject of the email (optional, defaults to `'mail from chitrapatang'`).
+    - `subject`: The subject of the email (optional, defaults to `'mail from chitrapatang terminal'`).
     - `code`: A 4 to 8 digit alphanumeric verification code.
     - `para`: The paragraph text to display in the email body.
     - `expiresAt`: The expiration time of the verification code (`Date`, `string`, or `number`).
@@ -46,7 +46,7 @@ Handles sending emails using the **Resend** SDK.
   Sends a welcome email to a new user. The payload is validated using Zod.
   - **Payload Properties**:
     - `receiver`: The recipient's email address.
-    - `subject`: The subject of the email (optional, defaults to `'Welcome to chitrapatang'`).
+    - `subject`: The subject of the email (optional, defaults to `'Welcome to chitrapatang terminal'`).
     - `username`: The username of the new user.
 
 

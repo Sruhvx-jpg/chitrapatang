@@ -48,7 +48,7 @@ export async function SendWelcomeMail(payload: SendWelcomeMailParams) {
 
   const htmlContent = `
     <div style="font-family: sans-serif; padding: 20px; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #eee; border-radius: 10px;">
-      <h2 style="color: #4F46E5; margin-bottom: 20px;">Welcome to Chitrapatang!</h2>
+      <h2 style="color: #4F46E5; margin-bottom: 20px;">Welcome to Chitrapatang Terminal!</h2>
       <p style="font-size: 16px; line-height: 1.5;">Hi <strong>${username}</strong>,</p>
       <p style="font-size: 16px; line-height: 1.5;">
         We're thrilled to have you join our community. Thank you for signing up!
@@ -59,7 +59,7 @@ export async function SendWelcomeMail(payload: SendWelcomeMailParams) {
       <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;" />
       <p style="font-size: 14px; color: #6B7280;">
         Best regards,<br />
-        The Chitrapatang Team
+        The Chitrapatang Terminal Team
       </p>
     </div>
   `;

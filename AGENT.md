@@ -1,6 +1,6 @@
 # Agent Guidelines and Rules
 
-This document outlines the strict engineering, design, and architectural rules established for Chitrapatang. All AI agents working on this repository must adhere to these rules without exception.
+This document outlines the strict engineering, design, and architectural rules established for Chitrapatang Terminal. All AI agents working on this repository must adhere to these rules without exception.
 
 ---
 
