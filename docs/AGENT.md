@@ -1,6 +1,11 @@
 # Agent Guidelines and Rules
 
-This document outlines the strict engineering, design, and architectural rules established for Chitrapatang Terminal. All AI agents working on this repository must adhere to these rules without exception.
+> **Engineering Constraints, Design Standards, Monorepo Boundaries, and Conventional Commits.**
+
+---
+
+## 🧭 Navigation
+[⬅ Master Documentation Hub](README.md) • [Agile Scrum Guide](SCRUM.md) • [System Design](SYSTEM_DESIGN.md) • [API Reference](API_REFERENCE.md)
 
 ---
 
@@ -18,7 +23,7 @@ This document outlines the strict engineering, design, and architectural rules e
 
 1. **Theme & Branding**
    * Keep light and dark theme toggling functional using `next-themes` and `GlobalProviders`.
-   * Use **Blue** as the primary brand color for highlights, focus states, and primary actions (similar to how Claude uses orange).
+   * Use **Blue** as the primary brand color for highlights, focus states, and primary actions.
    * Match layouts precisely to reference screenshots provided by the user.
 
 2. **No Extraneous Login/Auth Options**
@@ -52,17 +57,27 @@ chitrapatang/
 ├── apps/
 │   ├── api/                # Express backend API serving tRPC routes
 │   ├── web/                # Next.js web application frontend (UI/components/pages)
-│   └── tauri-app/          # Tauri desktop client wrapper using a Next.js UI
+│   └── tauri-app/          # Tauri desktop client wrapper using Next.js UI
+├── docs/                   # Centralized Documentation directory
+│   ├── assets/             # Generated diagrams & visual assets
+│   ├── README.md           # Master Documentation Hub & Sitemap
+│   ├── SCRUM.md            # Agile Scrum & Product Architecture guide
+│   ├── SPRINT.md           # Project Sprint Planning & Roadmap
+│   ├── SYSTEM_DESIGN.md    # System Design & Architecture Patterns
+│   ├── API_REFERENCE.md    # tRPC Procedures & Router Specification
+│   ├── FRONTEND_DESIGN.md  # Design System & Glassmorphism Specs
+│   ├── POSTFIX.md          # Mail Server Configuration
+│   └── AGENT.md            # Agent Guidelines & Rules
 ├── packages/
 │   ├── trpc/               # Shared tRPC router definitions and client configurations
 │   ├── database/           # Drizzle ORM schemas, migration files, and client connection
 │   ├── logger/             # Winston logger wrapper module
-│   ├── services/           # Core business logic layer (e.g., UserService)
-│   ├── utils/              # Shared cryptographic, Redis, and email (Resend SDK) helper utilities
+│   ├── services/           # Core business logic layer (WorkspaceService, UserService, etc.)
+│   ├── utils/              # Shared cryptographic, Redis, and email helper utilities
 │   ├── eslint-config/      # Shared ESLint configuration rules
 │   └── typescript-config/  # Shared TypeScript compiler options
-├── AGENT.md                # Agent guidelines, rules, structure, and commit conventions
 ├── README.md               # Getting started instructions and monorepo overview
+├── setup.sh                # Setup script
 ├── turbo.json              # Turborepo task pipeline configuration
 └── pnpm-workspace.yaml     # pnpm workspace package definitions
 ```
@@ -71,7 +86,7 @@ chitrapatang/
 
 ## 📝 Git & Commit Conventions
 
-This project strictly follows the **Conventional Commits** specification. All commits must be formatted as follows:
+This project strictly follows the **Conventional Commits** specification:
 
 ```
 <type>(<scope>): <description>
@@ -95,3 +110,6 @@ This project strictly follows the **Conventional Commits** specification. All co
 * **utils**: Cryptography, redis, mail, or validation utilities.
 * **docs**: Documentation files.
 
+---
+
+*Chitrapatang Terminal — Agent Guidelines & Rules.*

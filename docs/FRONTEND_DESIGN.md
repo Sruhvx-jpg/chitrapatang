@@ -1,7 +1,12 @@
-# Chitra Patang — Unified Design System
+# Chitrapatang Terminal — Unified Design System
 ## Version 1.0.0 • Reference Implementation: `apps/coming-soon/`
 
-This document defines the visual foundations, component anatomy, and code-level design tokens for **Chitra Patang**. All user interfaces—including Next.js websites and the Tauri desktop application—must conform strictly to this specification to ensure Apple-grade craft, alignment, and semantic cohesion.
+> **Visual Foundations, Component Anatomy, Color Tokens, and Glassmorphic Code Specs.**
+
+---
+
+## 🧭 Navigation
+[⬅ Master Documentation Hub](README.md) • [Agile Scrum Guide](SCRUM.md) • [System Design](SYSTEM_DESIGN.md) • [Sprint Roadmap](SPRINT.md) • [API Reference](API_REFERENCE.md)
 
 ---
 
@@ -73,10 +78,6 @@ Typography is the core of the interface. Tracking decreases as font size increas
 
 ## 4. Spacing, Radius & Shadows
 
-Consistent grids and corner details prevent visual noise.
-
-
-
 ### Spacing Scale
 Utilize a strict 8px logic:
 - `4px` (xs) • `8px` (sm) • `16px` (md) • `24px` (lg) • `32px` (xl) • `48px` (2xl) • `64px` (3xl).
@@ -96,27 +97,25 @@ Utilize a strict 8px logic:
 
 Frosted surfaces must emulate physical light refraction and saturation shifts.
 
-### Glass Formula Specification
-
 ```css
-/* 1. Navigation Header Glass (Subtle, highly transparent, locks top) */
+/* 1. Navigation Header Glass */
 .glass-surface-nav {
   background-color: rgba(8, 9, 11, 0.7);
   backdrop-filter: blur(20px) saturate(190%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* 2. Hero Waitlist Card (High contrast, captures light catch) */
+/* 2. Hero Waitlist Card */
 .glass-surface-hero {
   background-color: rgba(255, 255, 255, 0.035);
   backdrop-filter: blur(28px) saturate(200%);
   border: 1px solid rgba(255, 255, 255, 0.07);
   box-shadow: 
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12), /* Top-edge light catch */
-    0 20px 40px -15px rgba(0, 0, 0, 0.5);       /* Frosted drop shadow */
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 20px 40px -15px rgba(0, 0, 0, 0.5);
 }
 
-/* 3. Value Proposition Card (Quiet, lighter backdrop) */
+/* 3. Value Proposition Card */
 .glass-surface-card {
   background-color: rgba(255, 255, 255, 0.015);
   backdrop-filter: blur(16px) saturate(180%);
@@ -136,11 +135,6 @@ Frosted surfaces must emulate physical light refraction and saturation shifts.
     0 30px 60px -20px rgba(0, 0, 0, 0.7);
 }
 ```
-
-### Constraints & Performance
-- **No Nesting**: Do not place a glass component inside another glass component. Nested `backdrop-filter` calculations destroy GPU frame rendering rates.
-- **No Animation on Glass**: Glass containers must never animate transform transitions (like scales or translations) on every frame. Perform animations on simple opacity or offset contents instead to maintain a clean 60fps refresh.
-- **Accessibility Safeguard**: Underlay a low-opacity dark mask (`bg-zinc-950/40`) beneath glass if dynamic high-contrast elements pass directly behind text fields.
 
 ---
 
@@ -164,41 +158,6 @@ Motion should guide attention, never distract. Use custom cubic-bezier curves in
   }
   ```
 
-### Easings & Speeds
-- **Standard Entrance**: `duration: 0.8s` with Apple's Ease-Out Curve: `cubic-bezier(0.16, 1, 0.3, 1)`.
-- **Micro-Interactions (Hover/Active)**: `duration: 0.2s` with Ease-Out: `cubic-bezier(0.16, 1, 0.3, 1)`.
-- **Reduced Motion Support**: Ensure all layout translations query `@media (prefers-reduced-motion: reduce)` to disable translations, fallback entirely to clean cross-fading opacities.
-
 ---
 
-## 7. Component Patterns
-
-### Waitlist Form
-- **Form Card**: Wrapped inside `.glass-surface-hero`.
-- **Inputs**: Transparent gray bg (`bg-zinc-950/60`), border hairline (`border-white/5`), focus state triggers custom ring with drop shadow glow (`0 0 24px rgba(0, 82, 255, 0.15)`).
-- **Primary CTAs**: Magnetic pull offset on hover. Fills completely with cobalt blue (`#0052FF`).
-- **Feedback Alerts**: Custom glass notification banners immediately below the input. Rose border for validation errors, emerald border for waitlist signups.
-
----
-
-## 8. Voice & Copy Tone
-
-We write copy that respects the user's intelligence. No exclamation points, no marketing hyperbole, no generic corporate fillers.
-
-| On-Brand Copy (Apple-grade) | Off-Brand Copy (Jira/Corporate style) |
-| :--- | :--- |
-| "Agile, without the management." | "The ultimate platform for agile scrum productivity!" |
-| "AI runs standups. Humans write code." | "Automate your daily standup meetings with our chatbot." |
-| "Explore the full workspace this fall." | "Register now to access our amazing beta release immediately!" |
-
----
-
-## 9. Do's and Don'ts Checklist
-
-- **DO** use Yatra One exclusively for the logo lockup. Use Geist Sans for headers and system text.
-- **DO** keep the blue butterfly solid cobalt blue and crisp.
-- **DO** align all content to the 8px spacing grid.
-- **DO** verify contrast levels on glass cards using validation tools.
-- **DON'T** layer glass components over each other.
-- **DON'T** let the butterfly icon disappear behind frosted-glass wrappers.
-- **DON'T** use generic marketing callouts or exclamation marks.
+*Chitrapatang Terminal — Unified Design System Reference.*

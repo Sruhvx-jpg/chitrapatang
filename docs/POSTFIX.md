@@ -1,6 +1,11 @@
-# Postfix Mail Server
+# Postfix Mail Server Specification
 
-This document covers the configuration and usage of the Postfix mail server for the project.
+> **Local SMTP Relay Setup, Production Internet Site Configuration, DNS Records, and TLS Certs.**
+
+---
+
+## 🧭 Navigation
+[⬅ Master Documentation Hub](README.md) • [Agile Scrum Guide](SCRUM.md) • [System Design](SYSTEM_DESIGN.md) • [API Reference](API_REFERENCE.md)
 
 ---
 
@@ -49,3 +54,7 @@ Secure SMTP traffic using TLS certificates (e.g., Let's Encrypt / Certbot):
 Ensure the following ports are open in your server firewall:
 - **Port 25**: SMTP (mandatory for receiving/transferring mail).
 - **Port 587**: STARTTLS submission (mandatory for clients sending mail).
+
+---
+
+*Chitrapatang Terminal — Postfix Mail Server Specification.*

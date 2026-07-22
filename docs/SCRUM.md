@@ -1,89 +1,105 @@
-# Chitrapatang Terminal — Agile Scrum & Product Architecture
+# Chitrapatang Terminal — Agile Scrum & Product Architecture Guide
 
-> **AI-Native Agile Project Management for Engineering Teams.**
->
-> This document outlines how the Scrum framework and Product/Sprint concepts are applied within Chitrapatang Terminal — from workspace creation to ticket delivery, security access tokens, and autonomous AI orchestration.
+> **Core Scrum Framework Specifications, Priority Tiers, 4-Stage Sprint Lifecycle, and ML Burndown Analytics.**
 
 ---
 
-## 1. Vision & Core Principles
-
-Chitrapatang Terminal is designed to streamline engineering workflows by uniting software product management, sprint execution, and automated AI agents into a single developer-first platform.
-
-- **Product & Project Unification:** In Chitrapatang, a **Product** and a **Project** represent the same entity. The Product Owner (Workspace Owner) links their GitHub repository directly to manage product goals, tickets, and sprint releases.
-- **Autonomous AI Scrum Master:** In addition to human managers, Chitrapatang integrates an **Autonomous AI Agent** to act as a co-Scrum Master — assisting with backlog grooming, standup summaries, automated sprint velocity tracking, and blocker detection *(coming in AI release once core application logic is complete)*.
+## 🧭 Navigation
+[⬅ Master Documentation Hub](README.md) • [System Design](SYSTEM_DESIGN.md) • [Sprint Roadmap](SPRINT.md) • [API Reference](API_REFERENCE.md) • [Frontend Design](FRONTEND_DESIGN.md)
 
 ---
 
-## 2. Priority Level Definitions
+## Executive Summary
 
-Every ticket and backlog item in Chitrapatang is assigned a strict priority level to govern engineering focus and release order.
+Chitrapatang Terminal is designed around a unified **Product & Project Model**. Instead of decoupling developer tasks from product objectives, tickets and sprints share a unified architectural lifecycle linked directly to GitHub repositories.
 
-![Agile Backlog Priority Levels](./assets/priority_tiers.png)
+```mermaid
+graph TD
+    Repo["GitHub Repository<br/>(Product Source)"] --> Backlog["Product Backlog<br/>(Unassigned Tickets)"]
+    Backlog --> Planning["1. Planning Stage<br/>(Story Points Estimated)"]
+    Planning --> Building["2. Building Stage<br/>(Active Code Development)"]
+    Building --> Testing["3. Testing Stage<br/>(QA & Code Review)"]
+    Testing --> Release["4. Release Stage<br/>(Deployed Increment)"]
 
-| Level | Priority Name | Visual Badge | Description & SLA |
-|-------|---------------|--------------|-------------------|
-| **P0** | **Critical** | 🔴 Red | Immediate action required. Production outages, security vulnerabilities, or release blockers. Must be resolved before any other work. |
-| **P1** | **High** | 🟡 Yellow | Priority for the current/upcoming sprint. Core feature developments and major improvements. |
-| **P2** | **Normal** | 🟢 Green | Valuable enhancement, non-urgent. Scheduled based on team capacity during sprint planning. |
-| **P3** | **Low** | ⚪ White | Minor polish, technical debt, refactoring, or future ideas. |
+    Release --> ML["ML Analytics & Velocity Engine<br/>(Predictive Burndown)"]
+
+    classDef stage fill:#0052FF,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef ml fill:#10b981,stroke:#fff,stroke-width:2px,color:#fff;
+
+    class Planning,Building,Testing,Release stage;
+    class ML ml;
+```
 
 ---
 
-## 3. Scrum Roles & Agent Integration
+## 1. Roles & Agile Responsibilities
 
-![Scrum Roles](./assets/scrum_roles.png)
-
-### Role Mapping in Chitrapatang
-
-| Scrum Role | Chitrapatang Equivalent | Primary Responsibilities |
-|------------|-------------------------|--------------------------|
-| **Product Owner** | Workspace Owner (`workspaces.owner_id`) | Defines product vision, links GitHub repositories, manages product backlog, and approves employee invitations. |
-| **Scrum Master** | Manager Employee / Autonomous AI Agent | Facilitates sprint ceremonies, generates employee invite codes, manages sprint read/write access keys, and tracks team velocity. |
+| Agile Role | Platform Mapping | Primary Responsibilities |
+| :--- | :--- | :--- |
+| **Product Owner (PO)** | Workspace Owner (`role = "owner"`) | Manages product backlog, defines feature acceptance criteria, connects GitHub repositories. |
+| **Scrum Master (SM)** | Manager Employee / AI Agent (`role = "manager"`) | Facilitates sprint ceremonies, generates employee invite codes, tracks velocity, manages access keys (`read_key`, `write_key`). |
 | **Development Team** | Active Employees (`status = "active"`) | Self-organizing engineers who estimate story points, execute tickets, and transition work through the sprint lifecycle. |
-
-### Employee Invitation Flow
-
-The single-table invitation system (`employees` table) manages onboarding:
-
-![Employee Invitation Flow](./assets/invitation_flow.png)
+| **Autonomous AI Agent** | System Service Worker | Performs automated daily standup summaries, predicts completion bottlenecks, flags over-allocated developers. |
 
 ---
 
-## 4. Four-Stage Sprint Lifecycle
+## 2. Priority Tiers (P0 – P3)
 
-Work items in a sprint move through four distinct states during development:
+All tickets and sprint work items must be tagged with a strict priority level:
 
-![Sprint Lifecycle States](./assets/sprint_lifecycle_states.png)
+![Priority Tiers Infographic](./assets/priority_tiers.png)
 
-| Stage | Enum Key | Description |
-|-------|----------|-------------|
-| **1. Planning** | `planning` | Backlog item selected for sprint, estimated in story points, and assigned to engineers. |
-| **2. Building** | `building` | Active development, feature implementation, and code writing. |
-| **3. Testing** | `testing` | Quality assurance, automated test suite runs, code reviews, and bug fixes. |
-| **4. Release** | `release` | Verified increment deployed to production or target release build. |
-
-> *Note: Application schemas allow future extensibility for dynamic user-defined custom states.*
+| Tier | Priority Level | SLA / Attention Target | Guidelines & Context |
+| :--- | :--- | :--- | :--- |
+| **P0** | **Critical / Blocker** | Immediate (< 24 Hours) | Production outages, core database migration failures, broken authentication, security vulnerabilities. |
+| **P1** | **High** | Current Sprint Target | Primary product features, essential API procedures, core UI workflows necessary for sprint delivery. |
+| **P2** | **Medium** | Scheduled Next Sprint | Secondary enhancements, performance optimizations, non-blocking bug fixes. |
+| **P3** | **Low** | Backlog / Flexible | Minor cosmetic polish, internal developer tooling, documentation refactoring. |
 
 ---
 
-## 5. Estimation & Story Points
+## 3. Four-Stage Sprint Lifecycle
 
-Chitrapatang uses standard **Fibonacci Story Pointing** to measure relative complexity and effort:
+Work items in a sprint move through four distinct, non-skippable stages during development:
 
-![Fibonacci Story Points Scale](./assets/fibonacci_story_points.png)
+![Sprint Lifecycle States Infographic](./assets/sprint_lifecycle_states.png)
+
+```mermaid
+stateDiagram-v2
+    [*] --> Planning : Ticket Assigned to Sprint
+    Planning --> Building : Developer Starts Work
+    Building --> Testing : Pull Request Submitted
+    Testing --> Release : QA & Code Review Approved
+    Testing --> Building : Tests Fail / Revision Requested
+    Release --> [*] : Included in Sprint Increment
+```
+
+| Stage Index | Enum Key | Description & Triggers |
+| :---: | :--- | :--- |
+| **1** | `planning` | Backlog item selected for sprint, estimated in Fibonacci story points, and assigned to engineers. |
+| **2** | `building` | Active development, feature implementation, and local unit test writing. |
+| **3** | `testing` | Quality assurance, automated CI test execution, code review, and bug resolution. |
+| **4** | `release` | Verified increment deployed to production or packaged into Tauri desktop release builds. |
+
+---
+
+## 4. Estimation & Story Points
+
+Chitrapatang uses standard **Fibonacci Story Pointing** to measure relative complexity:
+
+![Fibonacci Story Points Scale Infographic](./assets/fibonacci_story_points.png)
 
 $$\text{Story Points} \in \{1, 2, 3, 5, 8, 13\}$$
 
-- **1 – 2 Points:** Small tasks, quick bug fixes, simple UI tweaks.
-- **3 – 5 Points:** Medium feature development, new API endpoints, database schema updates.
-- **8 – 13 Points:** Complex architectural changes, major subsystem implementations. Items $\ge 13$ must be broken down during Sprint Planning.
+- **1 – 2 Points:** Minor bug fixes, quick UI text updates, utility additions.
+- **3 – 5 Points:** Medium features, new tRPC procedure endpoints, schema updates.
+- **8 – 13 Points:** Major subsystem implementations, complex architectural refactors. *Items $\ge 13$ points must be split before sprint commitment.*
 
 ---
 
-## 6. Access Control, Security Keys & Audit Logs
+## 5. Security Token Architecture & Audit Logs
 
-To protect sprint data and enable secure API integrations, Chitrapatang enforces dynamic read and write access keys per sprint:
+Sprint access and board mutations are protected by dynamic security keys:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -102,7 +118,7 @@ To protect sprint data and enable secure API integrations, Chitrapatang enforces
 
 ---
 
-## 7. Sprint Performance, Predictive ML & Burndown Analytics
+## 6. Predictive ML Burndown & Velocity Engine
 
 Chitrapatang Terminal integrates Machine Learning models to provide intelligent sprint velocity forecasting and predictive burndown statistics:
 
@@ -115,14 +131,4 @@ Chitrapatang Terminal integrates Machine Learning models to provide intelligent 
 
 ---
 
-## 8. System Data Flow & Architecture
-
-![System Architecture & Data Flow](./assets/architecture_data_flow.png)
-
----
-
-## 9. Summary of System Artifacts
-
-- **`docs/scrum.md`**: Complete Agile Scrum architecture & product vision guide.
-- **`docs/sprint.md`**: Dedicated sprint execution, backlog management, and technical schema specification.
-- **`packages/database/models/MODEL.md`**: Database relational schema specification.
+*Chitrapatang Terminal — Agile Scrum Architecture Specification.*

@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Chitrapatang Web Application (`apps/web`)
 
-## Getting Started
+> **Next.js 15+ App Router Web Client powered by tRPC, React 19, and Apple-grade Glassmorphic UI design tokens.**
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Overview
+
+The `apps/web` application is the primary frontend user interface for Chitrapatang Terminal. It provides an intuitive, high-performance web client for engineering managers, product owners, and developers to manage agile sprints, track backlog tickets, conduct channel discussions, and visualize predictive ML burndown statistics.
+
+---
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 15+ (App Router), React 19, TypeScript
+- **State & RPC**: tRPC React Client (`@trpc/react-query`), `@tanstack/react-query`
+- **Styling & Tokens**: Tailwind CSS, CSS OKLCH Wide-Gamut Palette, Lucide React Icons
+- **Theme Provider**: `next-themes` (Dark/Light mode support with system preference detection)
+- **Design System**: Apple-grade glassmorphism formulas, `Geist Sans`, `Geist Mono`, and `Yatra One` font stacks ([docs/FRONTEND_DESIGN.md](../../docs/FRONTEND_DESIGN.md))
+
+---
+
+## 📂 Key Architecture & Routing
+
+```
+apps/web/
+├── app/
+│   ├── (auth)/             # Login, registration, and OTP verification pages
+│   ├── GetStarted/         # Workspace onboarding, claim codes & invitation state flow
+│   ├── dashboard/          # Interactive Kanban Sprint Board & ML Burndown chart
+│   ├── workspace/          # 4-Channel real-time chat & keyset-paginated messaging
+│   └── layout.tsx          # Root layout with GlobalProviders and theme wrapper
+├── components/
+│   ├── ui/                 # Reusable design system primitives (GridBackground, GlassCard, etc.)
+│   ├── workspace/          # Workspace creation and employee invitation components
+│   └── chat/               # Keyset-paginated message feeds and input controls
+├── hooks/                  # Centralized tRPC mutation side-effect hooks (use-auth.ts, etc.)
+├── utils/                  # tRPC React client setup and helpers
+└── public/                 # Static branding assets and images
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔒 Architectural Rules (Client-Side)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter, a custom Google Font.
+Per project guidelines ([docs/AGENT.md](../../docs/AGENT.md)):
 
-## Learn More
+1. **Centralized React Hooks**: All tRPC mutation side-effects (notifications, cookie updates, router redirects) must be encapsulated within custom hooks under `apps/web/hooks/` (e.g. `use-auth.ts`). Do not place inline mutation hooks directly in page view components.
+2. **Theme Toggling**: Dark and light themes must be preserved using `next-themes` and `GlobalProviders`.
+3. **No Unrequested Auth Providers**: Auth screens adhere strictly to focused Email/Password credentials without unnecessary 3rd-party OAuth clutter.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Setup & Development
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Run the frontend locally from the root workspace:
 
-## Deploy on Vercel
+```bash
+# Start Next.js development server on port 3000
+pnpm dev --filter=web
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Build production Next.js application
+pnpm build --filter=web
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Start Next.js production server
+pnpm --filter=web start
+```
+
+---
+
+## 📘 Documentation Links
+
+- 🎨 **[Unified Frontend Design System](../../docs/FRONTEND_DESIGN.md)**
+- 🤖 **[Agent Frontend Guidelines](../../docs/AGENT.md)**
+- 🏗️ **[System Architecture Patterns](../../docs/SYSTEM_DESIGN.md)**
+
+---
+
+*Chitrapatang Terminal — Web Application Frontend.*
+
